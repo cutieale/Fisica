@@ -5,6 +5,7 @@
 #include <Kismet/KismetSystemLibrary.h>
 #include <Kismet/GameplayStatics.h>
 #include "PhysicsCharacter.h"
+#include "Camera/CameraComponent.h"
 #include "PhysicsWeaponComponent.h"
 
 void UHitscanWeaponComponent::Fire()
