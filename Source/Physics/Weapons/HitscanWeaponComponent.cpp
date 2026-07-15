@@ -15,11 +15,11 @@ void UHitscanWeaponComponent::Fire()
 	FVector vStart = Character->FirstPersonCameraComponent->GetComponentLocation();//dispara desde cam
 	float fRange = 100000.f; //rango arma
 	FVector vEnd = vStart + vCharView * fRange; //dispara hasta rango
-
-	if(GetWorld()->LineTraceSingleByChannel(m_HitResult, vStart, vEnd, ECC_Visibility))
+	
+	FHitResult oHitResult;
+	if(GetWorld()->LineTraceSingleByChannel(oHitResult, vStart, vEnd, ECC_Visibility))
 	{
-		// DrawDebugSphere(GetWorld(), m_HitResult.Location, 10.f, 12, FColor::Green, false, 1.f);
-		m_HitResult.GetComponent()->AddImpulse(vCharView * 100000.f);
-		
+		DrawDebugSphere(GetWorld(), oHitResult.Location, 10.f, 12, FColor::Green, false, 1.f);
+		oHitResult.GetComponent()->AddImpulse(vCharView * 100000.f);
 	}
 }
