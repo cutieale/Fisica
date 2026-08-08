@@ -22,5 +22,6 @@ void UHitscanWeaponComponent::Fire()
 	{
 		DrawDebugSphere(GetWorld(), oHitResult.Location, 10.f, 12, FColor::Green, false, 1.f);
 		oHitResult.GetComponent()->AddImpulse(vCharView * 100000.f);
+		ApplyDamage(oHitResult, GetOwner());
 	}
 }

@@ -35,4 +35,12 @@ APhysicsProjectile::APhysicsProjectile()
 
 void APhysicsProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	if(m_OwnerWeapon)
+	{
+		m_OwnerWeapon->ApplyDamage(Hit, this);
+	}
+	if(m_DestroyOnHit)
+	{
+		Destroy();
+	}
 }

@@ -87,6 +87,26 @@ bool UPhysicsWeaponComponent::AttachWeapon(APhysicsCharacter* TargetCharacter)
 	return true;
 }
 
+void UPhysicsWeaponComponent::ApplyDamage(const FHitResult& rHit, AActor* pCauser)
+{
+	if(!pCauser)
+	{
+		pCauser = GetOwner();
+	}
+	if (m_iDamageType == 0) 
+	{
+		UGameplayStatics::ApplyDamage(rHit.GetActor(), m_fDamage, UGameplayStatics::GetPlayerController(this, 0), pCauser, DamageTypeClass);
+	}
+	if (m_iDamageType == 1)
+	{
+		UGameplayStatics::ApplyPointDamage(rHit.GetActor(), m_fDamage, rHit.ImpactNormal, rHit, pCauser->GetInstigatorController(), pCauser, DamageTypeClass);
+	}
+	else if (m_iDamageType == 2)
+	{
+		UGameplayStatics::ApplyRadialDamage(this, m_fDamage, rHit.ImpactPoint, m_fDamageRadius, DamageTypeClass, TArray<AActor*>(), pCauser, pCauser->GetInstigatorController(), true);
+	}
+}
+
 void UPhysicsWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	// ensure we have a character owner

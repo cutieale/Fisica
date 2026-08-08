@@ -7,6 +7,7 @@
 #include "PhysicsWeaponComponent.generated.h"
 
 class APhysicsCharacter;
+class UDamageType;
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PHYSICS_API UPhysicsWeaponComponent : public USkeletalMeshComponent
@@ -35,6 +36,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* FireAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UDamageType> DamageTypeClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (DisplayName = "Type", AllowPrivateAccess = "true", ToolTip = "0:None\n1:Linear\n2:Radial"))
+	int m_iDamageType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (DisplayName = "Damage", AllowPrivateAccess = "true"))
+	float m_fDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (DisplayName = "Radius", AllowPrivateAccess = "true"))
+	int m_fDamageRadius;
+
 	/** Sets default values for this component's properties */
 	UPhysicsWeaponComponent();
 
@@ -45,6 +58,8 @@ public:
 	/** Make the weapon Fire a Projectile */
 	UFUNCTION(BlueprintCallable, Category="Weapon")
 	virtual void Fire();
+
+	void ApplyDamage(const FHitResult& rHit, AActor* pCauser);
 
 protected:
 
