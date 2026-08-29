@@ -110,7 +110,9 @@ protected:
 	float m_CurrentHealth;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DebugData, meta = (AllowPrivateAccess = "true"))
 	UPhysicsHandleComponent* m_PhysicsHandle;
-	
+	bool m_bIsGrabbing = false;
+	float m_fGrabDistance = 0;
+	TObjectPtr<AActor> m_pHighlightedObject = nullptr;
 public:
 	APhysicsCharacter();
 	virtual void BeginPlay() override;
